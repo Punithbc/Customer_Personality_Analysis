@@ -45,6 +45,7 @@ class CustomerData:
             if "_id" in df.columns.to_list():
                 df = df.drop('_id',axis=1)
             df.replace({"na":np.nan}, inplace= True)
+            print(f"len of dataframe {len(df)}")
             return df     
         except Exception  as e:
             raise e 
