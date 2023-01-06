@@ -1,0 +1,4 @@
+dill==0.3.5.1
+dnspython==2.2.1
+pip-chill==1.0.1
+-e .
