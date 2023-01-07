@@ -29,4 +29,21 @@ class DataValidationConfig:
         self.filter_data_path: str = os.path.join(self.valid_data_dir, training_pipeline.FILTERED_DATA_FILE_NAME)
 
 
+class DataTransformation1Config:
+    def __init__(self, training_pipline_config: TrainingPipelineConfig):
+        self.data_transformation_1_dir:str = os.path.join(training_pipline_config.artifact_dir, training_pipeline.DATA_TRANSFORMATION_DIR_NAME)
+        self.encoded_file_dir: str = os.path.join(self.data_transformation_1_dir, training_pipeline.DATA_TRANSFORMATION_ENCODED_DIR_NAME)
+        self.encoded_data_file_path: str = os.path.join(self.encoded_file_dir, training_pipeline.DATA_TRANSFORMATION_ENCODED_DATA_FILE_NAME)
+        self.encoded_object_file_path: str = os.path.join(self.encoded_file_dir, training_pipeline.DATA_TRANSFORMATION_ENCODED_OBJECT_FILE_NAME)
+        self.scaled_file_dir: str = os.path.join(self.data_transformation_1_dir, training_pipeline.DATA_TRANSFORMATION_SCALED__DIR_NAME)
+        self.scaled_data_file_path: str = os.path.join(self.scaled_file_dir, training_pipeline.DATA_TRANSFORMATION_SCALED_DATA_FILE_NAME)
+        self.sclaed_object_file_path: str = os.path.join(self.scaled_file_dir, training_pipeline.DATA_TRANSFORMATION_SCALED_OBJECT_FILE_NAME)
+
+
+
+
+
+
+
+
 
