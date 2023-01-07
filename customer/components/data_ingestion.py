@@ -7,7 +7,7 @@ import os
 class DataIngestion:
     def __init__(self, data_injestion_config: DataIngestionConfig):
         try:
-            self.data_injestion_config = data_injestion_config(TrainingPipelineConfig)
+            self.data_injestion_config = data_injestion_config
             self.collection_name = self.data_injestion_config.collectionName
         except Exception as e:
             raise e    
