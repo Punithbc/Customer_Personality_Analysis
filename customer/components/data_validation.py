@@ -2,7 +2,6 @@ from customer.entity.artifact_entity import DataValidationArtifact, DataIngestio
 from customer.entity.config_entity import DataValidationConfig
 import pandas as pd
 import numpy as np
-import yaml
 import os
 from customer.utils.main_utils import write_yaml_file, read_yaml_file
 from customer.constant.training_pipeline import SCHEMA_FILE_PATH
@@ -117,6 +116,9 @@ class DataValidation:
             dataframe = dataframe[(dataframe["Income"]<600000)]
             print("The total number of data-points after removing the outliers are:", len(dataframe))
             print(dataframe.describe())
+            cols_del = ['AcceptedCmp3', 'AcceptedCmp4', 'AcceptedCmp5', 'AcceptedCmp1','AcceptedCmp2', 'Complain', 'Response']
+            dataframe = dataframe.drop(cols_del, axis=1)
+            print(f"shape of dataframe {dataframe.shape}")
             return dataframe
         except Exception as e:
             raise e    
