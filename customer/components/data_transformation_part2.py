@@ -34,7 +34,7 @@ class DataTransformation2:
             #saving pca dataset
             pca_file_path = self.data_transformation2config.pca_file_data_path
             os.makedirs(os.path.dirname(pca_file_path), exist_ok=True)
-            PCA_ds.to_csv(pca_file_path)
+            PCA_ds.to_csv(pca_file_path, header=True, index=False)
             print("pca dataset saved")
             #saving pca obj file
 
@@ -56,7 +56,7 @@ class DataTransformation2:
             #saving cluster data
             cluster_data_path = self.data_transformation2config.cluster_data_file_path
             os.makedirs(os.path.dirname(cluster_data_path))
-            dataframe.to_csv(cluster_data_path)
+            dataframe.to_csv(cluster_data_path,header=True, index=False)
             print(f"clusters dataset saved , there are {dataframe['Clusters'].unique()} clusters in total")
         except Exception as e:
             raise e

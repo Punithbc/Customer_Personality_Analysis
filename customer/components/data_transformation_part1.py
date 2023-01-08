@@ -40,7 +40,7 @@ class DataTransformation1:
             #saving the encoded dataset
             saving_file_path = self.data_tansformation_config1.encoded_data_file_path
             os.makedirs(os.path.dirname(saving_file_path), exist_ok= True)
-            df.to_csv(saving_file_path)
+            df.to_csv(saving_file_path, header=True , index=False)
             #saving the encoded object
             encoded_obj_file_path = self.data_tansformation_config1.encoded_object_file_path
 
@@ -62,7 +62,7 @@ class DataTransformation1:
             #saving the scaled dataset
             saving_file_path = self.data_tansformation_config1.scaled_data_file_path
             os.makedirs(os.path.dirname(saving_file_path), exist_ok=True)
-            scaled_ds.to_csv(saving_file_path)
+            scaled_ds.to_csv(saving_file_path, header=True, index=False)
             #saving the scaled obj
 
 
