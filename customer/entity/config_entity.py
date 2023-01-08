@@ -52,5 +52,12 @@ class DataTransformation2Config:
         
 
 
-
+class ModelTrainerConfig:
+    def __init__(self, training_pipline_config:TrainingPipelineConfig):
+        self.model_trainer_dir: str = os.path.join(training_pipline_config.artifact_dir, training_pipeline.MODEL_TRAINER_DIR_NAME)
+        self.train_test_split_dir: str = os.path.join(self.model_trainer_dir, training_pipeline.MODEL_TRAINER_TRAIN_TEST_SPLIT_DIR_NAME)
+        self.train_data_file_path: str = os.path.join(self.train_test_split_dir, training_pipeline.MODEL_TRAINER_TRAIN_DATA_FILE_NAME)
+        self.test_data_file_path: str = os.path.join(self.train_test_split_dir, training_pipeline.MODEL_TRAINER_TEST_DATA_FILE_NAME)
+        self.ml_model_dir: str = os.path.join(self.model_trainer_dir, training_pipeline.MODEL_TRAINER_MODEL_SAVE_DIR_NAME)
+        self.ml_model_obj_file_path: str = os.path.join(self.ml_model_dir, training_pipeline.MODEL_TRAINER_MODEL_OBJ_FILE_NAME)
 
