@@ -3,9 +3,10 @@ from customer.entity.config_entity import DataIngestionConfig,TrainingPipelineCo
 from customer.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact, DataTranformation1Artifact
 from customer.components.data_validation import DataValidation
 from customer.components.data_transformation_part1 import DataTransformation1
-from customer.entity.config_entity import DataTransformation2Config
-from customer.entity.artifact_entity import DataTransformation2Artifat
+from customer.entity.config_entity import DataTransformation2Config, ModelTrainerConfig
+from customer.entity.artifact_entity import DataTransformation2Artifat, ModelTrainerArtifact
 from customer.components.data_transformation_part2 import DataTransformation2
+from customer.components.model_trainer import ModelTrainer
 
 
 
@@ -52,6 +53,15 @@ class TrainPipeline:
         return data_transformation_2_artifact
 
 
+    def start_model_trainer(self,data_transforamtion1artifact:DataTranformation1Artifact, 
+        data_transformation2artifact:DataTransformation2Artifat)->ModelTrainerArtifact:
+        try:
+            model_trainer_config = ModelTrainerConfig(training_pipline_config=self.training_pipline_config)
+            model_trainer_obj = ModelTrainer(model_trainer_config=model_trainer_config,data_tranformation_artifact_1=data_transforamtion1artifact,
+            data_transformation_artifact_2=data_transformation2artifact)
+            model_trainer_artifact = model_trainer_obj.initiate_model_trainer()
+        except Exception as e:
+            raise e
 
 
 
@@ -62,6 +72,8 @@ class TrainPipeline:
             data_valid_arti = self.start_data_validation(data_injestion_artifact=data_injes_arti)
             data_trans_arti_1 = self.start_data_transformation1(data_validation_artifact=data_valid_arti)
             data_trans_arti_2 = self.start_data_transformation2(data_trans_arti_1)
+            model_trainer_artifact = self.start_model_trainer(data_transforamtion1artifact=data_trans_arti_1, data_transformation2artifact=data_trans_arti_2)
+
         except Exception as e:
             raise e         
 
