@@ -24,4 +24,28 @@ def write_yaml_file(file_path: str, content:object, replace:bool=False):
         with open(file_path, 'w') as file:
             yaml.dump(content,file)        
     except Exception as e:
-        raise e                 
+        raise e
+
+def save_object(file_path:str, obj:object)-> None:
+    try:
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        with open(file_path, "wb") as file_obj:
+            dill.dump(obj, file_obj)
+        print("file is saved")    
+    except Exception as e:
+        raise e
+
+
+def load_object(file_path:str) -> None:
+    try:
+        if not os.path.exists(file_path):
+            raise Exception(f"The file {file_path} is not exists")
+        with open(file_path, 'rb') as file_obj:
+            return dill.load(file_obj)    
+    except Exception as e:
+        raise e        
+
+
+
+
+
