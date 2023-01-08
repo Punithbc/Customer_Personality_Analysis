@@ -53,6 +53,7 @@ class DataTransformation1:
 
     def scaling_the_encoded_dataset(self, dataframe: pd.DataFrame):
         try:
+            dataframe = dataframe.dropna()
             scaler = StandardScaler()
             scaler.fit(dataframe)
             scaled_ds = pd.DataFrame(scaler.transform(dataframe),columns= dataframe.columns)

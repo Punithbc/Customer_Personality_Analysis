@@ -39,7 +39,7 @@ class DataTransformation2:
             #saving pca obj file
 
             pca_obj_path = self.data_transformation2config.pca_obj_path
-            os.makedirs(os.path.dirname(pca_obj_path))
+            os.makedirs(os.path.dirname(pca_obj_path), exist_ok=True)
             save_object(pca_obj_path,obj=pca)
             return PCA_ds
         except Exception as e:
