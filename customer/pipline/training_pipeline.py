@@ -1,10 +1,11 @@
 from customer.components.data_ingestion import DataIngestion
-from customer.entity.config_entity import DataIngestionConfig,TrainingPipelineConfig, DataValidationConfig
+from customer.entity.config_entity import DataIngestionConfig,TrainingPipelineConfig, DataValidationConfig,DataTransformation1Config
 from customer.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact, DataTranformation1Artifact
 from customer.components.data_validation import DataValidation
 from customer.components.data_transformation_part1 import DataTransformation1
-
-
+from customer.entity.config_entity import DataTransformation2Config
+from customer.entity.artifact_entity import DataTransformation2Artifat
+from customer.components.data_transformation_part2 import DataTransformation2
 
 
 
@@ -39,19 +40,28 @@ class TrainPipeline:
             raise e
 
     def start_data_transformation1(self,data_validation_artifact:DataValidationArtifact) -> DataTranformation1Artifact:
-        data_transorformation1config = data_transorformation1config(trainingpipelineconfig=self.training_pipline_config)
+        data_transorformation1config = DataTransformation1Config(training_pipline_config=self.training_pipline_config)
         data_transformation_obj = DataTransformation1(data_tansformation_config1=data_transorformation1config, data_validation_artifact=data_validation_artifact)
         data_transformation_artifact1 = data_transformation_obj.initiate_data_transformation_1()
         return data_transformation_artifact1
+
+    def start_data_transformation2(self, data_transforamtion1artifact:DataTranformation1Artifact) ->DataTransformation2Artifat:
+        data_transformation_2_config = DataTransformation2Config(training_pipline_config=self.training_pipline_config)
+        data_transformation_2_obj = DataTransformation2(data_transformation2config=data_transformation_2_config,data_transformation_1_artifcat=data_transforamtion1artifact)
+        data_transformation_2_artifact = data_transformation_2_obj.inititate_data_transformation_part_2()
+        return data_transformation_2_artifact
+
+
+
 
 
     def run_pipeline(self):
         try:
             TrainPipeline.is_pipeline_running = True
-            data_injestion_config = DataIngestionConfig(self.training_pipline_config)
             data_injes_arti = self.start_data_ingestion()
             data_valid_arti = self.start_data_validation(data_injestion_artifact=data_injes_arti)
             data_trans_arti_1 = self.start_data_transformation1(data_validation_artifact=data_valid_arti)
+            data_trans_arti_2 = self.start_data_transformation2(data_trans_arti_1)
         except Exception as e:
             raise e         
 

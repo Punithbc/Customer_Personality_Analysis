@@ -41,8 +41,15 @@ class DataTransformation1Config:
 
 
 
-
-
+class DataTransformation2Config:
+    def __init__(self, training_pipline_config:TrainingPipelineConfig):
+        self.data_transformation_2_dir:str = os.path.join(training_pipline_config.artifact_dir, training_pipeline.DATA_TRANSFORMATION_2_DIR_NAME)
+        self.pca_file_dir: str = os.path.join(self.data_transformation_2_dir, training_pipeline.DATA_TRANSORMATION_2_PCA_DIR_NAME)
+        self.pca_file_data_path: str = os.path.join(self.pca_file_dir, training_pipeline.DATA_TRANSFORMATION_2_PCA_FILE_NAME)
+        self.pca_obj_path: str = os.path.join(self.pca_file_dir, training_pipeline.DATA_TRANSFORMATION_2_PCA_OBJ_FILE_NAME)
+        self.cluster_dir: str = os.path.join(self.data_transformation_2_dir, training_pipeline.DATA_TRANSFORMATION_2_CLUSTER_DIR_NAME)
+        self.cluster_data_file_path: str = os.path.join(self.cluster_dir, training_pipeline.DATA_TRANSFORMATION_2_CLUSTER_FILE_NAME)
+        
 
 
 

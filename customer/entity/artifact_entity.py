@@ -18,5 +18,10 @@ class DataTranformation1Artifact:
     # encoded_object_file_path:str
     scaled_data_file_path:str
     # scaled_data_object_path:str
+
+
+@dataclass
+class DataTransformation2Artifat:
+    clustered_data_file_path: str    
           
     

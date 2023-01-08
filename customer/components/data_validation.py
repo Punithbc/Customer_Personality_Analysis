@@ -141,7 +141,7 @@ class DataValidation:
             else:
                 print("validation was failed")
                 is_validated = False
-            datavalidationartifcat = DataValidationArtifact(validation_status=is_validated, filtered_data_file_path=filepath)
+            datavalidationartifcat = DataValidationArtifact(validation_status=is_validated, filtered_data_file_path=file_path)
             return datavalidationartifcat        
         except Exception as e:
             raise e        

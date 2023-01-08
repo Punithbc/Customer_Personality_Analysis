@@ -32,10 +32,21 @@ DATA_VALIDATION_VALID_DATA_DIR_NAME = "VALID_DATA"
  #data tranformation part 1 related constants
 
 
-DATA_TRANSFORMATION_DIR_NAME = "data_transformation"
+DATA_TRANSFORMATION_DIR_NAME = "data_transformation_part_1"
 DATA_TRANSFORMATION_ENCODED_DIR_NAME = "encoded"
 DATA_TRANSFORMATION_ENCODED_DATA_FILE_NAME = "encoded_data.csv"
 DATA_TRANSFORMATION_ENCODED_OBJECT_FILE_NAME = "encoded_object.pkl"
 DATA_TRANSFORMATION_SCALED__DIR_NAME = "scaled"
 DATA_TRANSFORMATION_SCALED_DATA_FILE_NAME = "scaled.csv"
 DATA_TRANSFORMATION_SCALED_OBJECT_FILE_NAME = "scaled_object.pkl"
+
+
+
+#data transformation part 2 related constants
+
+DATA_TRANSFORMATION_2_DIR_NAME = "data_tranformation_part_2"
+DATA_TRANSORMATION_2_PCA_DIR_NAME = "Dimentional_reduction"
+DATA_TRANSFORMATION_2_PCA_FILE_NAME = "pca_data.csv"
+DATA_TRANSFORMATION_2_PCA_OBJ_FILE_NAME = "pca_obj.pkl"
+DATA_TRANSFORMATION_2_CLUSTER_DIR_NAME = "cluster"
+DATA_TRANSFORMATION_2_CLUSTER_FILE_NAME = "cluster_data.csv"

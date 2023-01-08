@@ -11,12 +11,20 @@ class DataTransformation1:
             self.data_validation_artifact = data_validation_artifact
         except Exception as e:
             raise e
-
+    
+    
+    @staticmethod
+    def read_data(file_path) -> pd.DataFrame:
+        try:
+            dataframe  = pd.read_csv(file_path)
+            return dataframe
+        except Exception as e:
+            raise e   
 
     def encoding_the_filtered_dataset(self) -> pd.DataFrame:
         try:
             file_path_filtered = self.data_validation_artifact.filtered_data_file_path
-            df = pd.read_csv(file_path_filtered)
+            df = self.read_data(file_path_filtered)
             #Get list of categorical variables
             s = (df.dtypes == 'object')
             object_cols = list(s[s].index)
@@ -65,10 +73,10 @@ class DataTransformation1:
 
     def initiate_data_transformation_1(self)->DataTranformation1Artifact:
         try:
-            scaled_data_file_path = self.data_tansformation_config1.scaled_data_file_path
+            scaled_data_file = self.data_tansformation_config1.scaled_data_file_path
             encoded_df = self.encoding_the_filtered_dataset()
             self.scaling_the_encoded_dataset(encoded_df)
-            datatransformation_artifact = DataTranformation1Artifact(scaled_data_file_path=scaled_data_file_path)
-            return DataTranformation1Artifact
+            datatransformation_artifact = DataTranformation1Artifact(scaled_data_file_path=scaled_data_file)
+            return datatransformation_artifact
         except Exception as e:
             raise e
