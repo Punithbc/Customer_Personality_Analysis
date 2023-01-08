@@ -1,4 +1,4 @@
-from customer.utils.main_utils import save_object
+from customer.utils.main_utils import save_object,load_object
 from customer.entity.artifact_entity import DataTranformation1Artifact, DataTransformation2Artifat, ModelTrainerArtifact
 from customer.entity.config_entity import ModelTrainerConfig
 import os, sys
@@ -67,21 +67,45 @@ class ModelTrainer:
             y_train_pred = random_forest.predict(X_train)
             y_test_pred = random_forest.predict(X_test)
             print("training data score")
-            get_classification_score(y_true=y_train, y_pred=y_train_pred)
+            train_classfication = get_classification_score(y_true=y_train, y_pred=y_train_pred)
             print("testing data score")
-            get_classification_score(y_true=y_test, y_pred=y_test_pred)
+            test_classfication = get_classification_score(y_true=y_test, y_pred=y_test_pred)
             save_object(file_path=ml_model_obj_path, obj=random_forest)
+            return [train_classfication,test_classfication]
         except Exception as e:
             raise e
 
+    def creating_consolidated_customerModel(self):
+        try:
+            encoded_obj = load_object(self.data_tranformation_artifact_1.encoded_object_file_path)
+            scaled_obj = load_object(self.data_tranformation_artifact_1.scaled_data_object_path)
+            pca_obj = load_object(self.data_transformation_artifact_2.pca_obj_path)
+            ml_obj = load_object(self.model_trainer_config.ml_model_obj_file_path)
+            consolidated_obj = CustomerModel(encoder_obj=encoded_obj,scaled_obj=scaled_obj, pca_obj=pca_obj, model_obj=ml_obj)
+            #saving consolitdate_obj
+
+            file_path  = self.model_trainer_config.consolidated_obj_file_path
+            os.makedirs(os.path.dirname(file_path),exist_ok=True)
+            save_object(file_path=file_path, obj=consolidated_obj)
+            
+        except Exception as e:
+            raise e
     
-    def initiate_model_trainer(self):
+
+
+
+    def initiate_model_trainer(self) -> ModelTrainerArtifact:
         try:
             clustered_dataset = self.data_transformation_artifact_2.clustered_data_file_path
             dataframe = self.read_data(clustered_dataset)
             train_dataframe = self.start_train_test_split(dataframe=dataframe)
-            self.train_model(train_dataframe)
-            cus
+            train_classfication, test_classfication = self.train_model(train_dataframe)
+            self.creating_consolidated_customerModel()
+            model_trainer_artifact = ModelTrainerArtifact(train_metric_artifact=train_classfication, 
+            test_metric_artifact=test_classfication,
+            consolidated_obj=self.model_trainer_config.consolidated_obj_file_path,
+            trained_model_file_path=self.model_trainer_config.ml_model_obj_file_path)
+            return model_trainer_artifact
             
         except Exception as e:
             raise e     
