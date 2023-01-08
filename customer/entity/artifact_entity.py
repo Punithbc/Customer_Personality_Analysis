@@ -15,14 +15,15 @@ class DataValidationArtifact:
 @dataclass
 class DataTranformation1Artifact:
     # encoded_data_file_path:str
-    # encoded_object_file_path:str
+    encoded_object_file_path:str
     scaled_data_file_path:str
-    # scaled_data_object_path:str
+    scaled_data_object_path:str
 
 
 @dataclass
 class DataTransformation2Artifat:
-    clustered_data_file_path: str    
+    clustered_data_file_path: str
+    pca_obj_path: str    
           
 @dataclass  
 class ClassificationMetricArtifact:
@@ -34,5 +35,6 @@ class ClassificationMetricArtifact:
 class ModelTrainerArtifact:
     trained_model_file_path:str
     train_metric_artifact: ClassificationMetricArtifact
-    test_metric_artifact: ClassificationMetricArtifact   
+    test_metric_artifact: ClassificationMetricArtifact  
+    consolidated_obj : str 
 

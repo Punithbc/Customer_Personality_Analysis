@@ -68,7 +68,8 @@ class DataTransformation2:
             scaled_data = self.read_data(scaled_data_file_path)
             pca_data = self.start_pca(dataframe=scaled_data) 
             self.start_clustering_the_dataset(pca_data)
-            data_transformation_2_artifact = DataTransformation2Artifat(self.data_transformation2config.cluster_data_file_path) 
+            data_transformation_2_artifact = DataTransformation2Artifat(clustered_data_file_path=self.data_transformation2config.cluster_data_file_path, 
+            pca_obj_path=self.data_transformation2config.pca_obj_path) 
             return data_transformation_2_artifact
         except Exception as e:
             raise e                                

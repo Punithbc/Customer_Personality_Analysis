@@ -77,7 +77,8 @@ class DataTransformation1:
             scaled_data_file = self.data_tansformation_config1.scaled_data_file_path
             encoded_df = self.encoding_the_filtered_dataset()
             self.scaling_the_encoded_dataset(encoded_df)
-            datatransformation_artifact = DataTranformation1Artifact(scaled_data_file_path=scaled_data_file)
+            datatransformation_artifact = DataTranformation1Artifact(scaled_data_file_path=scaled_data_file,
+            scaled_data_object_path=self.data_tansformation_config1.sclaed_object_file_path, encoded_object_file_path=self.data_tansformation_config1.encoded_object_file_path)
             return datatransformation_artifact
         except Exception as e:
             raise e
