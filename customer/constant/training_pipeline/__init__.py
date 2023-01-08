@@ -4,9 +4,10 @@ import os
 SAVED_MODEL_DIR = os.path.join("saved_models")
 
 #defining common constant variable for training pipeline
-
-TARGET_COLUMN = ""
-PIPELINE_NAME = ""
+TRAIN_TEST_SPLIT_RATIO: float = 0.2
+TARGET_COLUMN = "Clusters"
+SEED = 7
+TEST_SIZE: float = 0.33
 ARTIFACT_DIR = "artifact"
 FILE_NAME = "customer.csv"
 TRAIN_FILE_NAME = "train.csv"

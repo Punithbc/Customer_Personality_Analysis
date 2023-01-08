@@ -60,4 +60,5 @@ class ModelTrainerConfig:
         self.test_data_file_path: str = os.path.join(self.train_test_split_dir, training_pipeline.MODEL_TRAINER_TEST_DATA_FILE_NAME)
         self.ml_model_dir: str = os.path.join(self.model_trainer_dir, training_pipeline.MODEL_TRAINER_MODEL_SAVE_DIR_NAME)
         self.ml_model_obj_file_path: str = os.path.join(self.ml_model_dir, training_pipeline.MODEL_TRAINER_MODEL_OBJ_FILE_NAME)
+        self.consolidated_obj_file_path: str = os.path.join(self.ml_model_dir, training_pipeline.CONSOLIDATETED_OBJ)
 

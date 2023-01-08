@@ -8,6 +8,7 @@ def get_classification_score(y_true, y_pred)->ClassificationMetricArtifact:
         model_f1_score = f1_score(y_true, y_pred)
         model_recall_score = recall_score(y_true, y_pred)
         model_precision_score = precision_score(y_true, y_pred)
+        print(f"f1 score = {model_f1_score}  recall score = {model_recall_score}  precision_score = {model_precision_score}")
 
 
         classfication_metric = ClassificationMetricArtifact(f1_score=model_f1_score,
