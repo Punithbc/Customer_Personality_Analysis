@@ -2,6 +2,7 @@ import os
 
 
 SAVED_MODEL_DIR = os.path.join("saved_models")
+PREDICTION_MODEL_FILE_NAME = "final.pkl"
 
 #defining common constant variable for training pipeline
 TRAIN_TEST_SPLIT_RATIO: float = 0.2

@@ -65,8 +65,8 @@ class DataValidation:
         except Exception as e:
             raise e    
     
-
-    def merging_some_rows(self, dataframe:pd.DataFrame) -> pd.DataFrame:
+    @classmethod
+    def merging_some_rows(cls,dataframe:pd.DataFrame) -> pd.DataFrame:
         try:
             dataframe["Dt_Customer"] = pd.to_datetime(dataframe["Dt_Customer"])
             dates = []

@@ -10,6 +10,7 @@ from customer.constant.training_pipeline import SEED, TEST_SIZE, TARGET_COLUMN, 
 from customer.ml.model.estimator import CustomerModel
 import time 
 from sklearn.metrics import accuracy_score
+from customer.constant.training_pipeline import SAVED_MODEL_DIR, PREDICTION_MODEL_FILE_NAME
 class ModelTrainer:
     def __init__(self,model_trainer_config:ModelTrainerConfig, 
         data_tranformation_artifact_1:DataTranformation1Artifact,
@@ -93,6 +94,11 @@ class ModelTrainer:
             file_path  = self.model_trainer_config.consolidated_obj_file_path
             os.makedirs(os.path.dirname(file_path),exist_ok=True)
             save_object(file_path=file_path, obj=consolidated_obj)
+            timestamp_for_path = self.model_trainer_config.training_pipline_config.timestamp1
+                                
+            saving_file_path = os.path.join(SAVED_MODEL_DIR,str(timestamp_for_path),PREDICTION_MODEL_FILE_NAME)
+            os.makedirs(os.path.dirname(saving_file_path),exist_ok=True)
+            save_object(file_path=saving_file_path,obj=consolidated_obj)
             
         except Exception as e:
             raise e

@@ -8,8 +8,9 @@ from customer.constant.database import COLLECTION_NAME
 
 class TrainingPipelineConfig:
     def __init__(self,timestamp=datetime.now()):
-        timestamp = timestamp.strftime("%m_%d_%Y_%H_%M_%S")
-        self.artifact_dir = os.path.join(training_pipeline.ARTIFACT_DIR, timestamp)
+        time_stamp = timestamp.strftime("%m_%d_%Y_%H_%M_%S")
+        self.timestamp1 = round(timestamp.timestamp())
+        self.artifact_dir = os.path.join(training_pipeline.ARTIFACT_DIR, time_stamp)
         self.timestamp:str = timestamp
 
 
@@ -43,7 +44,8 @@ class DataTransformation1Config:
 
 class DataTransformation2Config:
     def __init__(self, training_pipline_config:TrainingPipelineConfig):
-        self.data_transformation_2_dir:str = os.path.join(training_pipline_config.artifact_dir, training_pipeline.DATA_TRANSFORMATION_2_DIR_NAME)
+        self.training_pipline_config = training_pipline_config
+        self.data_transformation_2_dir:str = os.path.join(self.training_pipline_config.artifact_dir, training_pipeline.DATA_TRANSFORMATION_2_DIR_NAME)
         self.pca_file_dir: str = os.path.join(self.data_transformation_2_dir, training_pipeline.DATA_TRANSORMATION_2_PCA_DIR_NAME)
         self.pca_file_data_path: str = os.path.join(self.pca_file_dir, training_pipeline.DATA_TRANSFORMATION_2_PCA_FILE_NAME)
         self.pca_obj_path: str = os.path.join(self.pca_file_dir, training_pipeline.DATA_TRANSFORMATION_2_PCA_OBJ_FILE_NAME)
@@ -54,7 +56,8 @@ class DataTransformation2Config:
 
 class ModelTrainerConfig:
     def __init__(self, training_pipline_config:TrainingPipelineConfig):
-        self.model_trainer_dir: str = os.path.join(training_pipline_config.artifact_dir, training_pipeline.MODEL_TRAINER_DIR_NAME)
+        self.training_pipline_config = training_pipline_config
+        self.model_trainer_dir: str = os.path.join(self.training_pipline_config.artifact_dir, training_pipeline.MODEL_TRAINER_DIR_NAME)
         self.train_test_split_dir: str = os.path.join(self.model_trainer_dir, training_pipeline.MODEL_TRAINER_TRAIN_TEST_SPLIT_DIR_NAME)
         self.train_data_file_path: str = os.path.join(self.train_test_split_dir, training_pipeline.MODEL_TRAINER_TRAIN_DATA_FILE_NAME)
         self.test_data_file_path: str = os.path.join(self.train_test_split_dir, training_pipeline.MODEL_TRAINER_TEST_DATA_FILE_NAME)
