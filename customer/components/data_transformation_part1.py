@@ -3,7 +3,7 @@ from customer.entity.config_entity import DataTransformation1Config
 import pandas as pd
 from sklearn.preprocessing import StandardScaler, LabelEncoder 
 import os
-from customer.utils.main_utils import save_object
+from customer.utils.main_utils import save_object, wrapper
 class DataTransformation1:
     def __init__(self, data_tansformation_config1: DataTransformation1Config, data_validation_artifact: DataValidationArtifact):
         try:
@@ -25,15 +25,19 @@ class DataTransformation1:
         try:
             file_path_filtered = self.data_validation_artifact.filtered_data_file_path
             df = self.read_data(file_path_filtered)
+            
+            print(f"shape of dataset {df.shape}")
             #Get list of categorical variables
             s = (df.dtypes == 'object')
             object_cols = list(s[s].index)
 
             print("Categorical variables in the dataset:", object_cols)
 
-            LE=LabelEncoder()
-            for i in object_cols:
-                df[i]=df[[i]].apply(LE.fit_transform)
+            LE_1 = LabelEncoder()
+            LE_2 = LabelEncoder()
+            df['Education'] = LE_1.fit_transform(df['Education'])
+            df['Living_With'] = LE_2.fit_transform(df['Living_With'])
+            LE = wrapper(LE_1, LE_2)
                 
             print("All features are now numerical")
 
@@ -75,6 +79,7 @@ class DataTransformation1:
     def initiate_data_transformation_1(self)->DataTranformation1Artifact:
         try:
             scaled_data_file = self.data_tansformation_config1.scaled_data_file_path
+            print("encoding started")
             encoded_df = self.encoding_the_filtered_dataset()
             self.scaling_the_encoded_dataset(encoded_df)
             datatransformation_artifact = DataTranformation1Artifact(scaled_data_file_path=scaled_data_file,

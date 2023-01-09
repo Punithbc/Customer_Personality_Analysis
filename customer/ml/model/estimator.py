@@ -15,8 +15,16 @@ class CustomerModel:
 
     def predict(self, x):
         try:
-            encoded = self.encoded.transform(x)
-            scaling = self.scaled.tranform(encoded)
+            s = (x.dtypes == 'object')
+            print(f"shape of dataset {x.shape}")
+            object_cols = list(s[s].index)
+
+            print("Categorical variables in the dataset:", object_cols)
+            
+            x[object_cols[0]] = self.encoded.obj1.transform(x[object_cols[0]])
+            x[object_cols[1]] = self.encoded.obj2.transform(x[object_cols[1]])
+            
+            scaling = self.scaled.transform(x)
             pca = self.pca_obj.transform(scaling)
             y_hat = self.model_obj.predict(pca)
             return y_hat
