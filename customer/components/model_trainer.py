@@ -64,7 +64,7 @@ class ModelTrainer:
             print(X_train.head(10))
             print(y_train.head(10))
             random_forest.fit(X_train,y_train)
-            time.sleep(5)
+            time.sleep(2)
             #saving ml model
             ml_model_obj_path = self.model_trainer_config.ml_model_obj_file_path
             os.makedirs(os.path.dirname(ml_model_obj_path), exist_ok=True)

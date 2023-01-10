@@ -75,6 +75,7 @@ class TrainPipeline:
             model_trainer_artifact = self.start_model_trainer(data_transforamtion1artifact=data_trans_arti_1, data_transformation2artifact=data_trans_arti_2)
 
         except Exception as e:
+            TrainPipeline.is_pipeline_running = False
             raise e         
 
 

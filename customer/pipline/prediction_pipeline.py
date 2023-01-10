@@ -28,7 +28,26 @@ class Prediction:
             return latest_model_path
         except Exception as e:
             raise e
+    
 
+    def is_model_exists(cls)->bool:
+        try:
+            if not os.path.exists(SAVED_MODEL_DIR):
+                return False
+
+            timestamps = os.listdir(SAVED_MODEL_DIR)
+            if len(timestamps)==0:
+                return False
+
+            latest_model_path = Prediction.find_latest_model()  
+
+            if not os.path.exists(latest_model_path):
+                return False
+
+            return True           
+
+        except Exception as e:
+            raise e        
 
 
     def start_prediction(self)->pd.DataFrame:
@@ -41,3 +60,6 @@ class Prediction:
             return y_hat
         except Exception as e:
             raise e
+
+
+            

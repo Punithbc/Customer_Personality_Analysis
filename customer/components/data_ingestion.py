@@ -3,7 +3,7 @@ from customer.entity.config_entity import DataIngestionConfig,TrainingPipelineCo
 from customer.data_access.Customer_data import CustomerData
 from customer.constant.database import DATABASE_NAME
 import os
-
+from customer.logger import logging
 class DataIngestion:
     def __init__(self, data_injestion_config: DataIngestionConfig):
         try:
@@ -14,6 +14,7 @@ class DataIngestion:
 
     def export_data_to_feature_store(self):
         try:
+            logging.info("exporting data from mongodb to feature store")
             customer_data_obj = CustomerData()
             dataframe = customer_data_obj.export_collections_as_dataframe(collection_name=self.collection_name)
             feature_Store_path = self.data_injestion_config.featureStoreFilePath
