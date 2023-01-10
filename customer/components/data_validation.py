@@ -6,7 +6,7 @@ import os
 from customer.utils.main_utils import write_yaml_file, read_yaml_file
 from customer.constant.training_pipeline import SCHEMA_FILE_PATH
 from customer.constant.training_pipeline import FILTERED_DATA_FILE_NAME
-
+from customer.logger import logging
 class DataValidation:
     def __init__(self, data_injection_artifact:DataIngestionArtifact, data_validation_config:DataValidationConfig):
         try:
@@ -132,11 +132,15 @@ class DataValidation:
             print(f"filter data path {filepath}")
             is_validated = True 
             os.makedirs(filepath,exist_ok=True)
+            logging.info("validation is started")
             if self.validate_number_of_columns(dataframe) and self.is_numerical_column_exists(dataframe):
+                logging.info("validation successful")
                 dataframe_filled_nan = self.filling_nan_values(dataframe)
                 filtered_data_frame = self.merging_some_rows(dataframe_filled_nan)
+                logging.info("merging some rows")
                 filtered_data_frame.to_csv(self.data_validation_config.filter_data_path,index=False, header=True)
                 print("filterd data is been saved")
+                logging.info(f"fileterd data has been saved {self.data_validation_config.filter_data_path}")
                 
             else:
                 print("validation was failed")

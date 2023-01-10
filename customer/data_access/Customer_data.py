@@ -5,6 +5,7 @@ import pandas as pd
 import json
 from customer.configuration.mongo_db_connection import MongoDBClient
 from customer.constant.database import DATABASE_NAME
+from customer.logger import logging
 
 class CustomerData:
     '''
@@ -38,7 +39,8 @@ class CustomerData:
                 collection = self.mongo_client.database[collection_name]
             else:
                 collection = self.mongo_client[database_name][collection_name]
-            records = collection.find()   
+            records = collection.find()  
+            logging.info("DATASET is collected from database")
             df = pd.DataFrame(list(records))
             print("dataframe created")
             print(df.head())

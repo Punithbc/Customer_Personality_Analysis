@@ -21,6 +21,7 @@ class DataIngestion:
             dirpath = os.path.dirname(feature_Store_path)
             os.makedirs(dirpath,exist_ok=True)
             dataframe.to_csv(feature_Store_path,index=False,header=True)
+            logging.info(f"dataset is saved in {feature_Store_path}")
             return dataframe
         except Exception as e:
             raise e    

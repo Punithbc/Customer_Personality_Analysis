@@ -4,6 +4,8 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler, LabelEncoder 
 import os
 from customer.utils.main_utils import save_object, wrapper
+from customer.logger import logging
+
 class DataTransformation1:
     def __init__(self, data_tansformation_config1: DataTransformation1Config, data_validation_artifact: DataValidationArtifact):
         try:
@@ -45,9 +47,10 @@ class DataTransformation1:
             saving_file_path = self.data_tansformation_config1.encoded_data_file_path
             os.makedirs(os.path.dirname(saving_file_path), exist_ok= True)
             df.to_csv(saving_file_path, header=True , index=False)
+            logging.info(f"encoded file saved in {saving_file_path}")
             #saving the encoded object
             encoded_obj_file_path = self.data_tansformation_config1.encoded_object_file_path
-
+            logging.info(f"encoded obj saved in {encoded_obj_file_path}")
             save_object(encoded_obj_file_path, LE)
             return df
         except Exception as e:
@@ -71,6 +74,7 @@ class DataTransformation1:
 
 
             scaled_obj_file_path = self.data_tansformation_config1.sclaed_object_file_path
+            logging.info(f"scaled data saved in {saving_file_path}")
             save_object(scaled_obj_file_path, scaler)
         except Exception as e:
             raise e            
@@ -80,7 +84,9 @@ class DataTransformation1:
         try:
             scaled_data_file = self.data_tansformation_config1.scaled_data_file_path
             print("encoding started")
+            logging.info("encoding the categorical columns")
             encoded_df = self.encoding_the_filtered_dataset()
+            logging.info("scaling the dataset")
             self.scaling_the_encoded_dataset(encoded_df)
             datatransformation_artifact = DataTranformation1Artifact(scaled_data_file_path=scaled_data_file,
             scaled_data_object_path=self.data_tansformation_config1.sclaed_object_file_path, encoded_object_file_path=self.data_tansformation_config1.encoded_object_file_path)

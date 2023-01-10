@@ -7,6 +7,7 @@ from uvicorn import run as app_run
 from fastapi import Response
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import RedirectResponse
+from customer.constant.application import APP_HOST,APP_PORT
 
 
 app = FastAPI()
@@ -65,3 +66,4 @@ def main():
 
 if  __name__ == "__main__":
     main()
+    # app_run(app, host=APP_HOST, port=APP_PORT)

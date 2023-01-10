@@ -5,7 +5,7 @@ import os
 from sklearn.decomposition import PCA
 from sklearn.cluster import AgglomerativeClustering
 from customer.utils.main_utils import save_object
-
+from customer.logger import logging
 
 class DataTransformation2:
     def __init__(self, data_transformation2config:DataTransformation2Config, data_transformation_1_artifcat: DataTranformation1Artifact):
@@ -41,6 +41,8 @@ class DataTransformation2:
             pca_obj_path = self.data_transformation2config.pca_obj_path
             os.makedirs(os.path.dirname(pca_obj_path), exist_ok=True)
             save_object(pca_obj_path,obj=pca)
+            logging.info(f"Pca object saved in {pca_obj_path}")
+            logging.info(f"pca dataset saved in {pca_file_path}")
             return PCA_ds
         except Exception as e:
             raise e
@@ -58,6 +60,7 @@ class DataTransformation2:
             os.makedirs(os.path.dirname(cluster_data_path))
             dataframe.to_csv(cluster_data_path,header=True, index=False)
             print(f"clusters dataset saved , there are {dataframe['Clusters'].unique()} clusters in total")
+            logging.info(f"clusters dataset saved , there are {dataframe['Clusters'].unique()} clusters in total")
         except Exception as e:
             raise e
 
@@ -65,8 +68,11 @@ class DataTransformation2:
     def inititate_data_transformation_part_2(self)-> DataTransformation2Artifat:
         try:
             scaled_data_file_path = self.data_transformation_1_artifcat.scaled_data_file_path
+
             scaled_data = self.read_data(scaled_data_file_path)
+            logging.info("started PCA to reduce some dimentions")
             pca_data = self.start_pca(dataframe=scaled_data) 
+            logging.info("Now clustering the datset")
             self.start_clustering_the_dataset(pca_data)
             data_transformation_2_artifact = DataTransformation2Artifat(clustered_data_file_path=self.data_transformation2config.cluster_data_file_path, 
             pca_obj_path=self.data_transformation2config.pca_obj_path) 

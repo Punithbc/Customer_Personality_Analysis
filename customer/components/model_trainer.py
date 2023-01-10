@@ -11,6 +11,8 @@ from customer.ml.model.estimator import CustomerModel
 import time 
 from sklearn.metrics import accuracy_score
 from customer.constant.training_pipeline import SAVED_MODEL_DIR, PREDICTION_MODEL_FILE_NAME
+from customer.logger import logging
+
 class ModelTrainer:
     def __init__(self,model_trainer_config:ModelTrainerConfig, 
         data_tranformation_artifact_1:DataTranformation1Artifact,
@@ -64,13 +66,15 @@ class ModelTrainer:
             print(X_train.head(10))
             print(y_train.head(10))
             random_forest.fit(X_train,y_train)
+            logging.info("Training has begun")
             time.sleep(2)
             #saving ml model
             ml_model_obj_path = self.model_trainer_config.ml_model_obj_file_path
             os.makedirs(os.path.dirname(ml_model_obj_path), exist_ok=True)
             y_train_pred = random_forest.predict(X_train)
             y_test_pred = random_forest.predict(X_test)
-            print(f"accuracy score is {accuracy_score(y_true=y_train, y_pred=y_train_pred)}")
+            print(f"accuracy score is {accuracy_score(y_true=y_train, y_pred=y_train_pred)*100}")
+            logging.info(f"accuracy score is {accuracy_score(y_true=y_train, y_pred=y_train_pred)*100}")
             print("training data score")
             # train_classfication = get_classification_score(y_true=y_train, y_pred=y_train_pred)
             train_classfication = ""
@@ -78,6 +82,7 @@ class ModelTrainer:
             # test_classfication = get_classification_score(y_true=y_test, y_pred=y_test_pred)
             test_classfication=""
             save_object(file_path=ml_model_obj_path, obj=random_forest)
+            logging.info(f"saving the ML model in {ml_model_obj_path} ")
             return [train_classfication,test_classfication]
         except Exception as e:
             raise e
@@ -92,6 +97,8 @@ class ModelTrainer:
             #saving consolitdate_obj
 
             file_path  = self.model_trainer_config.consolidated_obj_file_path
+            logging.info(f"Saving all objects as consolidated objects in {file_path}")
+            logging.info("consolidated object constitues encoded, scaled, pca and ML model")
             os.makedirs(os.path.dirname(file_path),exist_ok=True)
             save_object(file_path=file_path, obj=consolidated_obj)
             timestamp_for_path = self.model_trainer_config.training_pipline_config.timestamp1
@@ -110,6 +117,7 @@ class ModelTrainer:
         try:
             clustered_dataset = self.data_transformation_artifact_2.clustered_data_file_path
             dataframe = self.read_data(clustered_dataset)
+            logging.info("reading the clustered dataset and starting the split the data")
             train_dataframe = self.start_train_test_split(dataframe=dataframe)
             train_classfication, test_classfication = self.train_model(train_dataframe)
             self.creating_consolidated_customerModel()
