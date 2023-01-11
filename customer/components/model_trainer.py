@@ -77,6 +77,7 @@ class ModelTrainer:
             total_no_clusters = len(clusters_list)
             final_result = f'''there are {total_no_clusters} clusters found in this dataset after PCA and clustering. 
             {clusters_list} are the clusters.Model's been trained with clusters. Accuracy score is {accuracy_score(y_true=y_train, y_pred=y_train_pred)*100}'''
+            logging.info(final_result)
             print(f"accuracy score is {accuracy_score(y_true=y_train, y_pred=y_train_pred)*100}")
             logging.info(f"accuracy score is {accuracy_score(y_true=y_train, y_pred=y_train_pred)*100}")
             print("training data score")
