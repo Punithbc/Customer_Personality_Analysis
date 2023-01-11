@@ -2,7 +2,7 @@
 {% block head %}
 <head>
   <meta charset="utf-8">
-  <title>INSURANCE PREMIUM PREDICTION</title>
+  <title>Customer Personality Analysis</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 {% endblock %}
@@ -11,42 +11,37 @@
 <body>
   <h2>A Warm welcome to the website</h2>
   <hr>
+  <p>In this project, I will be performing an unsupervised clustering of data on the customer's records from a groceries firm's database. </p>
+  <p>Customer segmentation is the practice of separating customers into groups that reflect similarities among customers in each cluster.</p>
+  <p> I will divide customers into segments to optimize the significance of each customer to the business</p>
+  <p> To modify products according to distinct needs and behaviours of the customers.</p>
+   <p> It also helps the business to cater to the concerns of different types of customers.</p>
+  <p>I have trained the model after clustering and prediction is possible for differernt clusters</p>
   <div>
     <table>
       <tr>
         <td>
-          <h3 class="s">INPUT VALUES FOR PREDICTION:</h3>
+          <h3 class="s">Clustering and Training:</h3>
+        </td>
+      </tr>
+      <form class="" action="/train" method="post">
+        <tr>
+          <td><input type="submit" name="Train" value="Train"></td>
+        </tr>
+      </form>
+    </table>
+    <table>
+      <tr>
+        <td>
+          <h3 class="s">Prediction:</h3>
         </td>
       </tr>
       <form class="" action="/predict" method="post">
         <tr>
-          <td><label>Enter AGE: </label></td>
-          <td><input type="number" name="age" ></td>
-        </tr>
-          <tr>
-          <td><label>Enter BMI: </label></td>
-          <td><input type="number" name="bmi" ></td>
-        </tr>
-          <tr>
-          <td><label>Enter NO. of Children: </label></td>
-          <td><input type="number" name="children" ></td>
-        </tr>
-          <tr>
-          <td><label>Enter REGION: </label></td>
-          <td><input type="text" name="region" ></td>
-        </tr>
-          <tr>
-          <td><label>Enter SEX: </label></td>
-          <td><input type="text" name="sex" ></td>
-        </tr>
-        <tr>
-          <td><label>Enter Is Smoker['yes' or 'no]: </label></td>
-          <td><input type="text" name="smoker" ></td>
-          <td><input type="submit" name="Submit" value="Submit"></td>
+          <td><input type="submit" name="Predict" value="Predict"></td>
         </tr>
       </form>
     </table>
-    <hr>
   </div>
 </body>
 {% endblock %}

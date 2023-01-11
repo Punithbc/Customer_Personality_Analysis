@@ -23,7 +23,7 @@ def predict_route():
 
         df = pd.read_csv('raw_data.csv').head(5)
         prediction_obj = Prediction(df)
-        if not Prediction.is_model_exists():
+        if not prediction_obj.is_model_exists():
             return "Model is not available"
         result = prediction_obj.start_prediction()
         print("printing the prediciton")
