@@ -8,6 +8,7 @@ from fastapi import Response
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import RedirectResponse
 from customer.constant.application import APP_HOST,APP_PORT
+import asyncio
 
 
 app = FastAPI()
@@ -28,7 +29,7 @@ async def index():
 
 
 @app.get("/predict")
-def predict_route():
+async def predict_route():
     try:
 
         df = pd.read_csv('raw_data.csv').head(5)
@@ -43,7 +44,7 @@ def predict_route():
 
 
 @app.get("/train")
-def train_route():
+async def train_route():
     try:
         
         training_pipeline = TrainPipeline()
@@ -59,11 +60,14 @@ def train_route():
 def main():
     try:
         training_pipeline = TrainPipeline()
-        training_pipeline.run_pipeline()
+        result = training_pipeline.run_pipeline()
+        print(result)
 
     except Exception as e:
         raise e    
 
 if  __name__ == "__main__":
     main()
+    # loop = asyncio.get_event_loop()
+    # loop.run_until_complete(asyncio.wait(app_run(app)))
     # app_run(app, host=APP_HOST, port=APP_PORT)

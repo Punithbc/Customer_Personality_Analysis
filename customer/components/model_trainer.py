@@ -73,6 +73,10 @@ class ModelTrainer:
             os.makedirs(os.path.dirname(ml_model_obj_path), exist_ok=True)
             y_train_pred = random_forest.predict(X_train)
             y_test_pred = random_forest.predict(X_test)
+            clusters_list = dataframe[TARGET_COLUMN].unique()
+            total_no_clusters = len(clusters_list)
+            final_result = f'''there are {total_no_clusters} clusters found in this dataset after PCA and clustering. 
+            {clusters_list} are the clusters.Model's been trained with clusters. Accuracy score is {accuracy_score(y_true=y_train, y_pred=y_train_pred)*100}'''
             print(f"accuracy score is {accuracy_score(y_true=y_train, y_pred=y_train_pred)*100}")
             logging.info(f"accuracy score is {accuracy_score(y_true=y_train, y_pred=y_train_pred)*100}")
             print("training data score")
@@ -83,7 +87,7 @@ class ModelTrainer:
             test_classfication=""
             save_object(file_path=ml_model_obj_path, obj=random_forest)
             logging.info(f"saving the ML model in {ml_model_obj_path} ")
-            return [train_classfication,test_classfication]
+            return final_result
         except Exception as e:
             raise e
 
@@ -119,13 +123,13 @@ class ModelTrainer:
             dataframe = self.read_data(clustered_dataset)
             logging.info("reading the clustered dataset and starting the split the data")
             train_dataframe = self.start_train_test_split(dataframe=dataframe)
-            train_classfication, test_classfication = self.train_model(train_dataframe)
+            final_result = self.train_model(train_dataframe)
             self.creating_consolidated_customerModel()
-            model_trainer_artifact = ModelTrainerArtifact(train_metric_artifact=train_classfication, 
-            test_metric_artifact=test_classfication,
+            model_trainer_artifact = ModelTrainerArtifact(train_metric_artifact="None", 
+            test_metric_artifact="None",
             consolidated_obj=self.model_trainer_config.consolidated_obj_file_path,
             trained_model_file_path=self.model_trainer_config.ml_model_obj_file_path)
-            return model_trainer_artifact
+            return final_result
             
         except Exception as e:
             raise e     
