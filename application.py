@@ -56,7 +56,7 @@ def train_route():
 #         raise e    
 
 if  __name__ == "__main__":
-    application.run(debug=True)
+    application.run(debug=True,host=APP_HOST, port=APP_PORT)
     # loop = asyncio.get_event_loop()
     # loop.run_until_complete(asyncio.wait(app_run(app)))
     # app_run(app, host=APP_HOST, port=APP_PORT)
