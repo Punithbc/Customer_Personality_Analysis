@@ -1,4 +1,5 @@
 dill==0.3.5.1
+numpy
 attrs==19.3.0
 certifi==2019.11.28
 Click==7.0
