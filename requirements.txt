@@ -53,4 +53,3 @@ tbats==1.0.9
 urllib3==1.25.8
 dataclasses
 pymongo[srv]
--e .
