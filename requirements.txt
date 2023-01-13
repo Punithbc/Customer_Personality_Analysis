@@ -8,7 +8,7 @@ typing-extensions
 virtualenv
 zipp==3.6.0
 dataclasses
-numpy
+numpy==1.24.1
 pandas
 dill 
 sklearn
