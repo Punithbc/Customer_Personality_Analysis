@@ -17,3 +17,5 @@ certifi
 pyYaml
 scikit-learn
 Flask
+pymongo[srv]
+dns-python
