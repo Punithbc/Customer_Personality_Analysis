@@ -2,7 +2,7 @@ distlib==0.3.6
 filelock==3.4.1
 importlib-metadata==4.8.3
 importlib-resources==5.4.0
-pkg-resources==0.0.0
+pkg-resources
 platformdirs==2.4.0
 typing-extensions==4.1.1
 virtualenv==20.17.1
