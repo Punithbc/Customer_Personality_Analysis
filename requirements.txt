@@ -2,7 +2,6 @@ distlib
 filelock
 importlib-metadata
 importlib-resources
-pkg-resources
 platformdirs
 typing-extensions
 virtualenv
