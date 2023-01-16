@@ -37,6 +37,10 @@ https://youtu.be/cdFuraVB0Dw
 
 ![Screenshot from 2023-01-11 21-39-49](https://user-images.githubusercontent.com/62974340/212685975-30ccfb49-0337-4d5e-857e-485bf7cf666c.png)
 
+#HLD
+![HLD@1 25x](https://user-images.githubusercontent.com/62974340/212687842-604ae2de-fd9b-462a-b7ad-6c2f846ff2e0.png)
+
+
 
 # Technology Used
 1) Python
